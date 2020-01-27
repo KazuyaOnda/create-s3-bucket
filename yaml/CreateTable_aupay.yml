@@ -1,0 +1,184 @@
+﻿AWSTemplateFormatVersion: '2010-09-09'
+Description: This CloudFormation template to create S3 Bucket
+
+Parameters:
+  EnvCode:
+    Description: Type of this EnvCode.
+    Type: String
+  StoreCode:
+    Description: Type of this StoreCode.
+    Type: String
+
+Resources:
+  alltable:
+    Type: AWS::Glue::Table
+    DeletionPolicy: Retain
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: tpp_db
+      TableInput: 
+        Name: !Sub ${EnvCode}_${StoreCode}_aupay_all
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'csv'
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          Columns:
+          - Name: 'update_type'
+            Type: string
+          - Name: 'au_company_id'
+            Type: string
+          - Name: 'store_id'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'store_name_kn'
+            Type: string
+          - Name: 'postal_cd'
+            Type: string
+          - Name: 'city'
+            Type: string
+          - Name: 'town'
+            Type: string
+          - Name: 'address'
+            Type: string
+          - Name: 'building'
+            Type: string
+          - Name: 'latitude'
+            Type: string
+          - Name: 'longitude'
+            Type: string
+          - Name: 'url'
+            Type: string
+          - Name: 'tel'
+            Type: string
+          - Name: 'start_date'
+            Type: string
+          - Name: 'end_date'
+            Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/aupay/all/
+          SerdeInfo:
+            Parameters:
+              quotechar: '"'
+              skip.header.line.count: 1
+              EXTERNAL: 'TRUE'
+              field.delim: ','
+            SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
+  difftable:
+    Type: AWS::Glue::Table
+    DeletionPolicy: Retain
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: tpp_db
+      TableInput: 
+        Name: !Sub ${EnvCode}_${StoreCode}_aupay_diff
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'csv'
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          Columns:
+          - Name: 'update_type'
+            Type: string
+          - Name: 'au_company_id'
+            Type: string
+          - Name: 'store_id'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'store_name_kn'
+            Type: string
+          - Name: 'postal_cd'
+            Type: string
+          - Name: 'city'
+            Type: string
+          - Name: 'town'
+            Type: string
+          - Name: 'address'
+            Type: string
+          - Name: 'building'
+            Type: string
+          - Name: 'latitude'
+            Type: string
+          - Name: 'longitude'
+            Type: string
+          - Name: 'url'
+            Type: string
+          - Name: 'tel'
+            Type: string
+          - Name: 'start_date'
+            Type: string
+          - Name: 'end_date'
+            Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/aupay/diff/
+          SerdeInfo:
+            Parameters:
+              quotechar: '"'
+              skip.header.line.count: 1
+              EXTERNAL: 'TRUE'
+              field.delim: ','
+            SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
+  temptable:
+    Type: AWS::Glue::Table
+    DeletionPolicy: Retain
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: tpp_db
+      TableInput: 
+        Name: !Sub ${EnvCode}_${StoreCode}_aupay_temp
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'csv'
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          Columns:
+          - Name: 'update_type'
+            Type: string
+          - Name: 'au_company_id'
+            Type: string
+          - Name: 'store_id'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'store_name_kn'
+            Type: string
+          - Name: 'postal_cd'
+            Type: string
+          - Name: 'city'
+            Type: string
+          - Name: 'town'
+            Type: string
+          - Name: 'address'
+            Type: string
+          - Name: 'building'
+            Type: string
+          - Name: 'latitude'
+            Type: string
+          - Name: 'longitude'
+            Type: string
+          - Name: 'url'
+            Type: string
+          - Name: 'tel'
+            Type: string
+          - Name: 'start_date'
+            Type: string
+          - Name: 'end_date'
+            Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/aupay/temp/
+          SerdeInfo:
+            Parameters:
+              quotechar: '"'
+              skip.header.line.count: 1
+              EXTERNAL: 'TRUE'
+              field.delim: ','
+            SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
+
+Outputs:
+  CreateResult:
+    Value: !Sub ${EnvCode}_${StoreCode}_aupay_all
+    Value: !Sub ${EnvCode}_${StoreCode}_aupay_diff
+    Value: !Sub ${EnvCode}_${StoreCode}_aupay_temp
+
