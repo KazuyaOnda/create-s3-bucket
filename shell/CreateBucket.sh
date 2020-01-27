@@ -1,8 +1,7 @@
 #!/bin/sh
 ## Enter Code
 EnvCode='tpplocaltest'
-echo "Enter StoreCode"
-read StoreCode
+StoreCode=$1
 
 ## CloudFormation Template
 CFTemplate="../yaml/CreateBucket.yml"
