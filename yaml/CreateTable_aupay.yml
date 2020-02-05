@@ -8,6 +8,9 @@ Parameters:
   StoreCode:
     Description: Type of this StoreCode.
     Type: String
+  Brand:
+    Description: Type of this Brand.
+    Type: String
 
 Resources:
   alltable:
@@ -15,18 +18,18 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: tpp_db
+      DatabaseName: sampledb
       TableInput: 
-        Name: !Sub ${EnvCode}_${StoreCode}_aupay_all
+        Name: !Sub ${Brand}_all_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
         StorageDescriptor:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           Columns:
-          - Name: 'update_type'
+          - Name: 'registration_type'
             Type: string
-          - Name: 'au_company_id'
+          - Name: 'aupay_company_cd'
             Type: string
           - Name: 'store_id'
             Type: string
@@ -50,14 +53,30 @@ Resources:
             Type: string
           - Name: 'url'
             Type: string
-          - Name: 'tel'
-            Type: string
           - Name: 'start_date'
             Type: string
           - Name: 'end_date'
             Type: string
+          - Name: 'tel'
+            Type: string
+          - Name: 'tool_order'
+            Type: string
+          - Name: 'destination_classifination'
+            Type: string
+          - Name: 'set_amount'
+            Type: string
+          - Name: 'dstination_name'
+            Type: string
+          - Name: 'destination_name_kn'
+            Type: string
+          - Name: 'public_private'
+            Type: string
+          - Name: 'e_publishing_reserve_datetime'
+            Type: string
+          - Name: 's_publishing_reserve_datetime'
+            Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
-          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/aupay/all/
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/all/
           SerdeInfo:
             Parameters:
               quotechar: '"'
@@ -70,18 +89,16 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: tpp_db
+      DatabaseName: sampledb
       TableInput: 
-        Name: !Sub ${EnvCode}_${StoreCode}_aupay_diff
+        Name: !Sub {$Brand}_diff_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
         StorageDescriptor:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           Columns:
-          - Name: 'update_type'
-            Type: string
-          - Name: 'au_company_id'
+          - Name: 'aupay_company_cd'
             Type: string
           - Name: 'store_id'
             Type: string
@@ -111,8 +128,14 @@ Resources:
             Type: string
           - Name: 'end_date'
             Type: string
+          - Name: 'public_private'
+            Type: string
+          - Name: 'e_publishing_reserve_datetime'
+            Type: string
+          - Name: 's_publishing_reserve_datetime'
+            Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
-          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/aupay/diff/
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/diff/
           SerdeInfo:
             Parameters:
               quotechar: '"'
@@ -127,16 +150,14 @@ Resources:
       CatalogId: !Ref AWS::AccountId
       DatabaseName: tpp_db
       TableInput: 
-        Name: !Sub ${EnvCode}_${StoreCode}_aupay_temp
+        Name: !Sub ${Brand}_temp_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
         StorageDescriptor:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           Columns:
-          - Name: 'update_type'
-            Type: string
-          - Name: 'au_company_id'
+          - Name: 'aupay_company_cd'
             Type: string
           - Name: 'store_id'
             Type: string
@@ -166,8 +187,14 @@ Resources:
             Type: string
           - Name: 'end_date'
             Type: string
+          - Name: 'public_private'
+            Type: string
+          - Name: 'e_publishing_reserve_datetime'
+            Type: string
+          - Name: 's_publishing_reserve_datetime'
+            Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
-          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/aupay/temp/
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/temp/
           SerdeInfo:
             Parameters:
               quotechar: '"'
@@ -178,7 +205,7 @@ Resources:
 
 Outputs:
   CreateResult:
-    Value: !Sub ${EnvCode}_${StoreCode}_aupay_all
-    Value: !Sub ${EnvCode}_${StoreCode}_aupay_diff
-    Value: !Sub ${EnvCode}_${StoreCode}_aupay_temp
+    Value: !Sub ${Brand}_all_${StoreCode}
+    Value: !Sub ${Brand}_diff_${StoreCode}
+    Value: !Sub ${Brand}_temp_${StoreCode}
 
