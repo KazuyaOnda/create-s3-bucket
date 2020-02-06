@@ -13,7 +13,7 @@ tmpJsonLine=`echo ${tmpJson} | python -m json.tool | wc -l`
 echo '_/_/_/ End Get S3 notification-configuration _/_/_/'
 
 ## CloudFormation Template
-CFTemplate="../yaml/CreateTable_$Brand.yml"
+CFTemplate="${CODEBUILD_SRC_DIR}/yaml/CreateTable_$Brand.yml"
 
 ## Create CloudFormation Stack
 echo '_/_/_/ Start create CloudFormation Stack ('$Brand') _/_/_/'
