@@ -73,11 +73,7 @@ LambdaFunctionJson='{
 }'
 
 echo '_/_/_/ Start Add put-bucket-notification-configuration upload event _/_/_/'
-<<<<<<< HEAD
-aws s3api put-bucket-notification-configuration --bucket $EnvCode.$StoreCode --notification-configuration "${LambdaFunctionJson}" --profile PersonalAdminRole
-=======
 aws s3api put-bucket-notification-configuration --bucket $EnvCode.$StoreCode --notification-configuration "${LambdaFunctionJson}"
->>>>>>> 7e03419d214c9a619a85e91c3a90035e0d4c660c
 echo '_/_/_/ End Add put-bucket-notification-configuration upload event _/_/_/'
 
 ## Brand
