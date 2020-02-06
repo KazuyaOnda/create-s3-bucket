@@ -82,6 +82,6 @@ while read Brand
 do
     # Call CreateBrand.sh
     echo '_/_/_/ $Brand start _/_/_/'
-    echo "`/bin/sh ./CreateBrand.sh $EnvCode $StoreCode $Brand $ResourceGroup`"
+    echo "`/bin/sh ./CreateBrand.sh $EnvCode $StoreCode $Brand $ResourceGroup $Database`"
     sleep 15s
 done < ../list/brand.list
