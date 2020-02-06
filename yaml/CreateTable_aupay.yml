@@ -11,6 +11,9 @@ Parameters:
   Brand:
     Description: Type of this Brand.
     Type: String
+  Database:
+    Description: Type of this Database.
+    Type: String
 
 Resources:
   alltable:
@@ -18,7 +21,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: sampledb
+      DatabaseName: ${Database}
       TableInput: 
         Name: !Sub ${Brand}_all_${StoreCode}
         TableType: EXTERNAL_TABLE
@@ -89,7 +92,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: sampledb
+      DatabaseName: ${Database}
       TableInput: 
         Name: !Sub {$Brand}_diff_${StoreCode}
         TableType: EXTERNAL_TABLE
@@ -148,7 +151,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: tpp_db
+      DatabaseName: ${Database}
       TableInput: 
         Name: !Sub ${Brand}_temp_${StoreCode}
         TableType: EXTERNAL_TABLE
@@ -208,4 +211,3 @@ Outputs:
     Value: !Sub ${Brand}_all_${StoreCode}
     Value: !Sub ${Brand}_diff_${StoreCode}
     Value: !Sub ${Brand}_temp_${StoreCode}
-

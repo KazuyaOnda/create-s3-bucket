@@ -8,6 +8,9 @@ Parameters:
   StoreCode:
     Description: Type of this StoreCode.
     Type: String
+  Database:
+    Description: Type of this Database.
+    Type: String
 
 Resources:
   storebucket:
@@ -30,7 +33,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: sampledb
+      DatabaseName: ${Database}
       TableInput: 
         Name: !Sub store_mst_${StoreCode}
         TableType: EXTERNAL_TABLE
@@ -170,5 +173,3 @@ Outputs:
   CreateResult:
     Value: !Sub ${EnvCode}-${StoreCode}-bucket
     Value: !Sub ${EnvCode}-${StoreCode}_upload-table
-    Value: !Sub ${EnvCode}-${StoreCode}_checked-table
-
