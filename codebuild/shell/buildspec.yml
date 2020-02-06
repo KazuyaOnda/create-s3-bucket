@@ -1,0 +1,10 @@
+version: 0.2
+ 
+env:
+  variables:
+    buildspec_yml_env: "This param is from buildspec.yml"
+phases:
+  build:
+    commands:
+      - echo buildspec_yml_env:${buildspec_yml_env}
+      - echo project_env:${project_env}
