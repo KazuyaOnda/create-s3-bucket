@@ -8,6 +8,12 @@ Parameters:
   StoreCode:
     Description: Type of this StoreCode.
     Type: String
+  Brand:
+    Description: Type of this Brand.
+    Type: String
+  Database:
+    Description: Type of this Database.
+    Type: String
 
 Resources:
   alltable:
@@ -15,9 +21,9 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: tpp_db
+      DatabaseName: ${Database}
       TableInput: 
-        Name: !Sub ${EnvCode}_${StoreCode}_paypay_all
+        Name: !Sub ${Brand}_all_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
@@ -93,7 +99,7 @@ Resources:
           - Name: 'map_optout'
             Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
-          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/paypay/all/
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/all/
           SerdeInfo:
             Parameters:
               quotechar: '"'
@@ -106,9 +112,9 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: tpp_db
+      DatabaseName: ${Database}
       TableInput: 
-        Name: !Sub ${EnvCode}_${StoreCode}_paypay_diff
+        Name: !Sub ${Brand}_diff_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
@@ -184,7 +190,7 @@ Resources:
           - Name: 'map_optout'
             Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
-          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/paypay/diff/
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/diff/
           SerdeInfo:
             Parameters:
               quotechar: '"'
@@ -197,9 +203,9 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: tpp_db
+      DatabaseName: ${Database}
       TableInput: 
-        Name: !Sub ${EnvCode}_${StoreCode}_paypay_temp
+        Name: !Sub ${Brand}_temp_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
@@ -275,7 +281,7 @@ Resources:
           - Name: 'map_optout'
             Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
-          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/paypay/temp/
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/temp/
           SerdeInfo:
             Parameters:
               quotechar: '"'
@@ -286,7 +292,6 @@ Resources:
 
 Outputs:
   CreateResult:
-    Value: !Sub ${EnvCode}_${StoreCode}_paypay_all
-    Value: !Sub ${EnvCode}_${StoreCode}_paypay_diff
-    Value: !Sub ${EnvCode}_${StoreCode}_paypay_temp
-
+    Value: !Sub ${Brand}_all_${StoreCode}
+    Value: !Sub ${Brand}_diff_${StoreCode}
+    Value: !Sub ${Brand}_temp_${StoreCode}
