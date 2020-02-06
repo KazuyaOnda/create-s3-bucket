@@ -6,7 +6,7 @@ ResourceGroup=$3
 Database=$4
 
 ## CloudFormation Template
-CFTemplate="../yaml/CreateBucket.yml"
+CFTemplate="${CODEBUILD_SRC_DIR}/yaml/CreateBucket.yml"
 
 ## CloudFormation Stack Create
 echo '_/_/_/ Start Create CloudFormation Stack _/_/_/'
