@@ -2,11 +2,18 @@
 Description: This CloudFormation template to create S3 Bucket
 
 Parameters:
+Parameters:
+  EnvCode:
+    Description: Type of this EnvCode.
+    Type: String
   StoreCode:
     Description: Type of this StoreCode.
     Type: String
-  BranchCode:
-    Description: Type of this BacketName.
+  Brand:
+    Description: Type of this Brand.
+    Type: String
+  Database:
+    Description: Type of this Database.
     Type: String
 
 Resources:
@@ -15,9 +22,9 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: tpp_db
+      DatabaseName: ${Database}
       TableInput: 
-        Name: !Sub ${StoreCode}_${BranchCode}_*brand*_all
+        Name: !Sub ${Brand}_all_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
@@ -27,7 +34,7 @@ Resources:
           - Name: 'column name'
             Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
-          Location: !Sub s3://${StoreCode}-${BranchCode}/brand/*brand*/all/
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/all/
           SerdeInfo:
             Parameters:
               quotechar: '"'
@@ -40,9 +47,9 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: tpp_db
+      DatabaseName: ${Database}
       TableInput: 
-        Name: !Sub ${StoreCode}_${BranchCode}_*brand*_diff
+        Name: !Sub ${Brand}_diff_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
@@ -52,7 +59,7 @@ Resources:
           - Name: 'column name'
             Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
-          Location: !Sub s3://${StoreCode}-${BranchCode}/brand/*brand*/diff/
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/diff/
           SerdeInfo:
             Parameters:
               quotechar: '"'
@@ -65,9 +72,9 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: tpp_db
+      DatabaseName: ${Database}
       TableInput: 
-        Name: !Sub ${StoreCode}_${BranchCode}_*brand*_temp
+        Name: !Sub ${Brand}_temp_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
@@ -77,7 +84,7 @@ Resources:
           - Name: 'column name'
             Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
-          Location: !Sub s3://${StoreCode}-${BranchCode}/brand/*brand*/temp/
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/temp/
           SerdeInfo:
             Parameters:
               quotechar: '"'
@@ -88,7 +95,6 @@ Resources:
 
 Outputs:
   CreateResult:
-    Value: !Sub ${StoreCode}_${BranchCode}_*brand*_all
-    Value: !Sub ${StoreCode}_${BranchCode}_*brand*_diff
-    Value: !Sub ${StoreCode}_${BranchCode}_*brand*_temp
-
+    Value: !Sub ${Brand}_all_${StoreCode}
+    Value: !Sub ${Brand}_diff_${StoreCode}
+    Value: !Sub ${Brand}_temp_${StoreCode}

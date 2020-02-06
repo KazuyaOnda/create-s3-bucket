@@ -10,13 +10,13 @@ CFTemplate="../yaml/CreateBucket.yml"
 
 ## CloudFormation Stack Create
 echo '_/_/_/ Start Create CloudFormation Stack _/_/_/'
-aws cloudformation create-stack --stack-name $EnvCode-$StoreCode-create --template-body file://$CFTemplate --parameters ParameterKey=EnvCode,ParameterValue=$EnvCode ParameterKey=StoreCode,ParameterValue=$StoreCode --tags Key=ResourceGroup,Value=$ResourceGroup
+aws cloudformation create-stack --stack-name $EnvCode-$StoreCode-create --template-body file://$CFTemplate --parameters ParameterKey=EnvCode,ParameterValue=$EnvCode ParameterKey=StoreCode,ParameterValue=$StoreCode ParameterKey=Database,ParameterValue=$Database --tags Key=ResourceGroup,Value=$ResourceGroup
 echo '_/_/_/ End Create CloudFormation Stack _/_/_/'
 
 ## Wait 10 Seconds S3 Bucket Create
 sleep 10s
 
-## Add Lambda InvokeFunction
+## Add Lambda Permission
 # ErrorCheck Lambda
 echo '_/_/_/ Start ErrorCheck Lambda Add Permission _/_/_/'
 aws lambda add-permission --function-name test-check-s3-upload-object --statement-id $EnvCode-$StoreCode-upload-event --action lambda:InvokeFunction --principal s3.amazonaws.com --source-arn arn:aws:s3:::$EnvCode.$StoreCode
@@ -63,7 +63,7 @@ LambdaFunctionJson='{
             }, 
             {
               "Name": "suffix", 
-              "Value": ".csv"
+              "Value": "upload.csv"
             }
           ]
         }
@@ -80,7 +80,7 @@ echo '_/_/_/ End Add put-bucket-notification-configuration upload event _/_/_/'
 while read Brand
 do
     # Call CreateBrand.sh
-    echo $Brand start
+    echo '_/_/_/ $Brand start _/_/_/'
     echo "`/bin/sh ./CreateBrand.sh $EnvCode $StoreCode $Brand $ResourceGroup $Database`"
     sleep 15s
 done < ../list/brand.list
