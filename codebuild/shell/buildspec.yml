@@ -1,0 +1,6 @@
+version: 0.2
+ 
+phases:
+  CreateBucket:
+    commands:
+      - /bin/bash shell/CreateBucket.sh ${EnvCode} ${StoreCode} ${ResourceGroup}
