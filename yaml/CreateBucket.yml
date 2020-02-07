@@ -168,4 +168,4 @@ Resources:
 Outputs:
   CreateResult:
     Value: !Sub ${EnvCode}-${StoreCode}-bucket
-    Value: !Sub ${EnvCode}-${StoreCode}_upload-table
+    Value: !Sub ${EnvCode}_${StoreCode}_upload_table
