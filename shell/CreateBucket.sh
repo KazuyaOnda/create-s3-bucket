@@ -4,6 +4,7 @@ EnvCode=$1
 StoreCode=$2
 ResourceGroup=$3
 Database=$4
+ACCOUNT_ID=$5
 
 ## CloudFormation Template
 CFTemplate="${CODEBUILD_SRC_DIR}/yaml/CreateBucket.yml"
@@ -50,7 +51,7 @@ LambdaFunctionJson='{
   "LambdaFunctionConfigurations": [
     {
       "Id": "'$EnvCode'.'$StoreCode'/upload/",
-      "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:278790208951:function:test-check-s3-upload-object",
+      "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'$ACCOUNT_ID':function:test-check-s3-upload-object",
       "Events": [
         "s3:ObjectCreated:Put"
       ],
@@ -77,10 +78,10 @@ aws s3api put-bucket-notification-configuration --bucket $EnvCode.$StoreCode --n
 echo '_/_/_/ End Add put-bucket-notification-configuration upload event _/_/_/'
 
 ## Brand
-while read Brand
-do
-    # Call CreateBrand.sh
-    echo '_/_/_/ $Brand start _/_/_/'
-    echo "`/bin/bash ${CODEBUILD_SRC_DIR}/shell/CreateBrand.sh $EnvCode $StoreCode $Brand $ResourceGroup $Database`"
-    sleep 15s
-done < ${CODEBUILD_SRC_DIR}/list/brand.list
+#while read Brand
+#do
+#    # Call CreateBrand.sh
+#    echo '_/_/_/ $Brand start _/_/_/'
+#    echo "`/bin/bash ${CODEBUILD_SRC_DIR}/shell/CreateBrand.sh $EnvCode $StoreCode $Brand $ResourceGroup $Database`"
+#    sleep 15s
+#done < ${CODEBUILD_SRC_DIR}/list/brand.list

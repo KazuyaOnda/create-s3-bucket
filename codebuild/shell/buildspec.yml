@@ -1,6 +1,10 @@
 version: 0.2
- 
+
+env:
+  variables:
+    ACCOUNT_ID: ACCOUNT_ID
+
 phases:
   post_build:
     commands:
-      - /bin/bash shell/CreateBucket.sh ${EnvCode} ${StoreCode} ${ResourceGroup}
+      - /bin/bash shell/CreateBucket.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID}
