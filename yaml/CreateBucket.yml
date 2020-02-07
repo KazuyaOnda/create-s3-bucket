@@ -31,128 +31,14 @@ Resources:
       CatalogId: !Ref AWS::AccountId
       DatabaseName: ${Database}
       TableInput: 
-        Name: !Sub '"store_mst_${StoreCode}"'
+        Name: !Sub store_mst_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
         StorageDescriptor:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           Columns:
-            - Name: 'toppan_company_cd'
-              Type: string
-            - Name: 'store_id'
-              Type: string
-            - Name: 'store_name'
-              Type: string
-            - Name: 'store_name_kn'
-              Type: string
-            - Name: 'store_name_eng'
-              Type: string
-            - Name: 'display_name'
-              Type: string
-            - Name: 'postal_cd'
-              Type: string
-            - Name: 'city'
-              Type: string
-            - Name: 'town'
-              Type: string
-            - Name: 'address'
-              Type: string
-            - Name: 'building'
-              Type: string
-            - Name: 'tel'
-              Type: string
-            - Name: 'opening_hours_1'
-              Type: string
-            - Name: 'closing_hours_1'
-              Type: string
-            - Name: 'business_hours_mon_1'
-              Type: string
-            - Name: 'business_hours_tue_1'
-              Type: string
-            - Name: 'business_hours_wed_1'
-              Type: string
-            - Name: 'business_hours_thu_1'
-              Type: string
-            - Name: 'business_hours_fri_1'
-              Type: string
-            - Name: 'business_hours_sat_1'
-              Type: string
-            - Name: 'business_hours_sun_1'
-              Type: string
-            - Name: 'before_holiday'
-              Type: string
-            - Name: 'opening_hours_2'
-              Type: string
-            - Name: 'closing_hours_2'
-              Type: string
-            - Name: 'business_hours_mon_2'
-              Type: string
-            - Name: 'business_hours_tue_2'
-              Type: string
-            - Name: 'business_hours_wed_2'
-              Type: string
-            - Name: 'business_hours_thu_2'
-              Type: string
-            - Name: 'business_hours_fri_2'
-              Type: string
-            - Name: 'business_hours_sat_2'
-              Type: string
-            - Name: 'business_hours_sun_2'
-              Type: string
-            - Name: 'regular_holiday'
-              Type: string
-            - Name: 'map_optout'
-              Type: string
-            - Name: 'latitude'
-              Type: string
-            - Name: 'longitude'
-              Type: string
-            - Name: 'url'
-              Type: string
-            - Name: 'start_date'
-              Type: string
-            - Name: 'end_date'
-              Type: string
-            - Name: 'public_private'
-              Type: string
-            - Name: 's_publishing_reserve_datetime'
-              Type: string
-            - Name: 'e_publishing_reserve_datetime'
-              Type: string
-            - Name: 'sales_form'
-              Type: string
-            - Name: 'email'
-              Type: string
-            - Name: 'store_name_abbreviation'
-              Type: string
-            - Name: 'business_hours'
-              Type: string
-            - Name: 'store_introduction'
-              Type: string
-            - Name: 'access'
-              Type: string
-            - Name: 'contact_dispay_flag'
-              Type: string
-            - Name: 'category_cd_1'
-              Type: string
-            - Name: 'category_cd_2'
-              Type: string
-            - Name: 'comment'
-              Type: string
-            - Name: 'website_id'
-              Type: string
-            - Name: 'tel_detail_screen'
-              Type: string
-            - Name: 'campaign'
-              Type: string
-            - Name: 'campaign_start_date'
-              Type: string
-            - Name: 'campaign_end_date'
-              Type: string
-            - Name: 'validity'
-              Type: string
-            - Name: 'other_info_biz_related'
+            - Name: 'id'
               Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
           Location: !Sub s3://${EnvCode}.${StoreCode}/upload/
