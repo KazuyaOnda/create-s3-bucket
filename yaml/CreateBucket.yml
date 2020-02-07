@@ -31,7 +31,7 @@ Resources:
       CatalogId: !Ref AWS::AccountId
       DatabaseName: ${Database}
       TableInput: 
-        Name: !Sub store_mst_${StoreCode}
+        Name: !Ref '"store_mst_${StoreCode}"'
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
