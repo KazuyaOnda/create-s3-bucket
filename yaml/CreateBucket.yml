@@ -24,9 +24,6 @@ Resources:
         BlockPublicPolicy: True
         IgnorePublicAcls: True
         RestrictPublicBuckets: True
-      Tags:
-        - Key: 'ResourceName'
-          Value: 'TPP'
   uploadtable:
     Type: AWS::Glue::Table
     DeletionPolicy: Retain
