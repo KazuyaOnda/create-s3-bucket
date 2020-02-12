@@ -51,7 +51,7 @@ LambdaFunctionJson='{
   "LambdaFunctionConfigurations": [
     {
       "Id": "'$EnvCode'.'$StoreCode'/upload/",
-      "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:278790208951:function:test-check-s3-upload-object",
+      "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'$ACCOUNT_ID':function:test-check-s3-upload-object",
       "Events": [
         "s3:ObjectCreated:Put"
       ],
