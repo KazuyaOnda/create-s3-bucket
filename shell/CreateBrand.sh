@@ -2,9 +2,10 @@
 ## GetCode
 EnvCode=$1
 StoreCode=$2
-Brand=$3
-ResourceGroup=$4
-Database=$5
+ResourceGroup=$3
+Database=$4
+ACCOUNT_ID=$5
+Brand=$6
 
 ## Get S3 notification-configuration
 echo '_/_/_/ Start Get S3 notification-configuration _/_/_/'
@@ -39,7 +40,7 @@ LambdaFunctionJson=`echo $tmpJson | python -m json.tool | head -$editJsonLine`
 LambdaFunctionJson+=',
     {
         "Id": "'/brand/'$Brand'/temp/'",
-        "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:278790208951:function:test-check-s3-temp-object",
+        "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'${ACCOUNT_ID}':function:test-check-s3-temp-object",
         "Events": [
             "s3:ObjectCreated:Put"
         ],
@@ -60,7 +61,7 @@ LambdaFunctionJson+=',
     },
     {
         "Id": "'/brand/'$brand'/diff/'",
-        "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:278790208951:function:test-check-s3-diff-object",
+        "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'${ACCOUNT_ID}':function:test-check-s3-diff-object",
         "Events": [
             "s3:ObjectCreated:Put"
         ],
