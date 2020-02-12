@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   variables:
-    ACCOUNT_ID: ACCOUNT_ID
+    ACCOUNT_ID: !Ref AWS::AccountId
 
 phases:
   post_build:
