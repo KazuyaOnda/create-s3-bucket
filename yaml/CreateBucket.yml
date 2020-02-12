@@ -29,7 +29,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: ${Database}
+      DatabaseName: !Sub ${Database}
       TableInput: 
         Name: !Sub store_mst_${StoreCode}
         TableType: EXTERNAL_TABLE
