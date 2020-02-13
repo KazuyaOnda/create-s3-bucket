@@ -1,0 +1,249 @@
+﻿AWSTemplateFormatVersion: '2010-09-09'
+Description: This CloudFormation template to create S3 Bucket
+
+Parameters:
+  EnvCode:
+    Description: Type of this EnvCode.
+    Type: String
+  StoreCode:
+    Description: Type of this StoreCode.
+    Type: String
+  Brand:
+    Description: Type of this Brand.
+    Type: String
+  Database:
+    Description: Type of this Database.
+    Type: String
+
+Resources:
+  alltable:
+    Type: AWS::Glue::Table
+    DeletionPolicy: Retain
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: ${Database}
+      TableInput: 
+        Name: !Sub ${Brand}_all_${StoreCode}
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'csv'
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          Columns:
+          - Name: 'data_classification'
+            Type: string
+          - Name: 'number'
+            Type: string
+          - Name: 'terminal_cd'
+            Type: string
+          - Name: 'terminal_classification'
+            Type: string
+          - Name: 'sales_floor_cd'
+            Type: string
+          - Name: 'sales_floor_name'
+            Type: string
+          - Name: 'store_id'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'category_cd_1'
+            Type: string
+          - Name: 'category_cd_2'
+            Type: string
+          - Name: 'category_cd'
+            Type: string
+          - Name: 'category_classification'
+            Type: string
+          - Name: 'category_name'
+            Type: string
+          - Name: 'store_comment'
+            Type: string
+          - Name: 'error_cd'
+            Type: string
+          - Name: 'sub_error_cd'
+            Type: string
+          - Name: 'reserve_1'
+            Type: string
+          - Name: 'reserve_2'
+            Type: string
+          - Name: 'reserve_3'
+            Type: string
+          - Name: 'reserve_4'
+            Type: string
+          - Name: 'reserve_5'
+            Type: string
+          - Name: 'reserve_6'
+            Type: string
+          - Name: 'reserve_7'
+            Type: string
+          - Name: 'reserve_8'
+            Type: string
+          - Name: 'reserve_9'
+            Type: string
+          - Name: 'reserve_10'
+            Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/all/
+          SerdeInfo:
+            Parameters:
+              quotechar: '"'
+              skip.header.line.count: 1
+              EXTERNAL: 'TRUE'
+              field.delim: ','
+            SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
+  difftable:
+    Type: AWS::Glue::Table
+    DeletionPolicy: Retain
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: ${Database}
+      TableInput: 
+        Name: !Sub ${Brand}_diff_${StoreCode}
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'csv'
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          Columns:
+          - Name: 'data_classification'
+            Type: string
+          - Name: 'number'
+            Type: string
+          - Name: 'terminal_cd'
+            Type: string
+          - Name: 'terminal_classification'
+            Type: string
+          - Name: 'sales_floor_cd'
+            Type: string
+          - Name: 'sales_floor_name'
+            Type: string
+          - Name: 'store_id'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'category_cd_1'
+            Type: string
+          - Name: 'category_cd_2'
+            Type: string
+          - Name: 'category_cd'
+            Type: string
+          - Name: 'category_classification'
+            Type: string
+          - Name: 'category_name'
+            Type: string
+          - Name: 'store_comment'
+            Type: string
+          - Name: 'error_cd'
+            Type: string
+          - Name: 'sub_error_cd'
+            Type: string
+          - Name: 'reserve_1'
+            Type: string
+          - Name: 'reserve_2'
+            Type: string
+          - Name: 'reserve_3'
+            Type: string
+          - Name: 'reserve_4'
+            Type: string
+          - Name: 'reserve_5'
+            Type: string
+          - Name: 'reserve_6'
+            Type: string
+          - Name: 'reserve_7'
+            Type: string
+          - Name: 'reserve_8'
+            Type: string
+          - Name: 'reserve_9'
+            Type: string
+          - Name: 'reserve_10'
+            Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/diff/
+          SerdeInfo:
+            Parameters:
+              quotechar: '"'
+              skip.header.line.count: 1
+              EXTERNAL: 'TRUE'
+              field.delim: ','
+            SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
+  temptable:
+    Type: AWS::Glue::Table
+    DeletionPolicy: Retain
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: ${Database}
+      TableInput: 
+        Name: !Sub ${Brand}_temp_${StoreCode}
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'csv'
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          Columns:
+          - Name: 'data_classification'
+            Type: string
+          - Name: 'number'
+            Type: string
+          - Name: 'terminal_cd'
+            Type: string
+          - Name: 'terminal_classification'
+            Type: string
+          - Name: 'sales_floor_cd'
+            Type: string
+          - Name: 'sales_floor_name'
+            Type: string
+          - Name: 'store_id'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'category_cd_1'
+            Type: string
+          - Name: 'category_cd_2'
+            Type: string
+          - Name: 'category_cd'
+            Type: string
+          - Name: 'category_classification'
+            Type: string
+          - Name: 'category_name'
+            Type: string
+          - Name: 'store_comment'
+            Type: string
+          - Name: 'error_cd'
+            Type: string
+          - Name: 'sub_error_cd'
+            Type: string
+          - Name: 'reserve_1'
+            Type: string
+          - Name: 'reserve_2'
+            Type: string
+          - Name: 'reserve_3'
+            Type: string
+          - Name: 'reserve_4'
+            Type: string
+          - Name: 'reserve_5'
+            Type: string
+          - Name: 'reserve_6'
+            Type: string
+          - Name: 'reserve_7'
+            Type: string
+          - Name: 'reserve_8'
+            Type: string
+          - Name: 'reserve_9'
+            Type: string
+          - Name: 'reserve_10'
+            Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/temp/
+          SerdeInfo:
+            Parameters:
+              quotechar: '"'
+              skip.header.line.count: 1
+              EXTERNAL: 'TRUE'
+              field.delim: ','
+            SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
+
+Outputs:
+  CreateResult:
+    Value: !Sub ${Brand}_all_${StoreCode}
+    Value: !Sub ${Brand}_diff_${StoreCode}
+    Value: !Sub ${Brand}_temp_${StoreCode}

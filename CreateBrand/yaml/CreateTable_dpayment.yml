@@ -1,0 +1,291 @@
+﻿AWSTemplateFormatVersion: '2010-09-09'
+Description: This CloudFormation template to create S3 Bucket
+
+Parameters:
+  EnvCode:
+    Description: Type of this EnvCode.
+    Type: String
+  StoreCode:
+    Description: Type of this StoreCode.
+    Type: String
+  Brand:
+    Description: Type of this Brand.
+    Type: String
+  Database:
+    Description: Type of this Database.
+    Type: String
+
+Resources:
+  alltable:
+    Type: AWS::Glue::Table
+    DeletionPolicy: Retain
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: ${Database}
+      TableInput: 
+        Name: !Sub ${Brand}_all_${StoreCode}
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'csv'
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          Columns:
+          - Name: 'dpayment_company_cd'
+            Type: string
+          - Name: 'store_id'
+            Type: string
+          - Name: 'website_id'
+            Type: string
+          - Name: 'company_name'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'store_short_name'
+            Type: string
+          - Name: 'store_name_kn'
+            Type: string
+          - Name: 'store_name_eng'
+            Type: string
+          - Name: 'postal_cd'
+            Type: string
+          - Name: 'address'
+            Type: string
+          - Name: 'tel'
+            Type: string
+          - Name: 'tel_detail_screen'
+            Type: string
+          - Name: 'email'
+            Type: string
+          - Name: 'business_hours_mon'
+            Type: string
+          - Name: 'business_hours_tue'
+            Type: string
+          - Name: 'business_hours_wed'
+            Type: string
+          - Name: 'business_hours_thu'
+            Type: string
+          - Name: 'business_hours_fri'
+            Type: string
+          - Name: 'business_hours_sat'
+            Type: string
+          - Name: 'business_hours_sun'
+            Type: string
+          - Name: 'business_hours_holiday'
+            Type: string
+          - Name: 'business_hours_before_holiday'
+            Type: string
+          - Name: 'regular_holiday'
+            Type: string
+          - Name: 'store_comment'
+            Type: string
+          - Name: 'business_format'
+            Type: string
+          - Name: 'url'
+            Type: string
+          - Name: 'start_date'
+            Type: string
+          - Name: 'end_date'
+            Type: string
+          - Name: 's_publishing_reserve_datetime'
+            Type: string
+          - Name: 'campaign'
+            Type: string
+          - Name: 'campaign_start_date'
+            Type: string
+          - Name: 'campaign_end_date'
+            Type: string
+          - Name: 'registration_type'
+            Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/all/
+          SerdeInfo:
+            Parameters:
+              quotechar: '"'
+              skip.header.line.count: 1
+              EXTERNAL: 'TRUE'
+              field.delim: ','
+            SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
+  difftable:
+    Type: AWS::Glue::Table
+    DeletionPolicy: Retain
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: ${Database}
+      TableInput: 
+        Name: !Sub ${Brand}_diff_${StoreCode}
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'csv'
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          Columns:
+          - Name: 'dpayment_company_cd'
+            Type: string
+          - Name: 'store_id'
+            Type: string
+          - Name: 'website_id'
+            Type: string
+          - Name: 'company_name'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'store_short_name'
+            Type: string
+          - Name: 'store_name_kn'
+            Type: string
+          - Name: 'store_name_eng'
+            Type: string
+          - Name: 'postal_cd'
+            Type: string
+          - Name: 'address'
+            Type: string
+          - Name: 'tel'
+            Type: string
+          - Name: 'tel_detail_screen'
+            Type: string
+          - Name: 'email'
+            Type: string
+          - Name: 'business_hours_mon'
+            Type: string
+          - Name: 'business_hours_tue'
+            Type: string
+          - Name: 'business_hours_wed'
+            Type: string
+          - Name: 'business_hours_thu'
+            Type: string
+          - Name: 'business_hours_fri'
+            Type: string
+          - Name: 'business_hours_sat'
+            Type: string
+          - Name: 'business_hours_sun'
+            Type: string
+          - Name: 'business_hours_holiday'
+            Type: string
+          - Name: 'business_hours_before_holiday'
+            Type: string
+          - Name: 'regular_holiday'
+            Type: string
+          - Name: 'store_comment'
+            Type: string
+          - Name: 'business_format'
+            Type: string
+          - Name: 'url'
+            Type: string
+          - Name: 'start_date'
+            Type: string
+          - Name: 'end_date'
+            Type: string
+          - Name: 's_publishing_reserve_datetime'
+            Type: string
+          - Name: 'campaign'
+            Type: string
+          - Name: 'campaign_start_date'
+            Type: string
+          - Name: 'campaign_end_date'
+            Type: string
+          - Name: 'registration_type'
+            Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/diff/
+          SerdeInfo:
+            Parameters:
+              quotechar: '"'
+              skip.header.line.count: 1
+              EXTERNAL: 'TRUE'
+              field.delim: ','
+            SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
+  temptable:
+    Type: AWS::Glue::Table
+    DeletionPolicy: Retain
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: ${Database}
+      TableInput: 
+        Name: !Sub ${Brand}_tmep_${StoreCode}
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'csv'
+        StorageDescriptor:
+          OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          Columns:
+          - Name: 'dpayment_company_cd'
+            Type: string
+          - Name: 'store_id'
+            Type: string
+          - Name: 'website_id'
+            Type: string
+          - Name: 'company_name'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'store_short_name'
+            Type: string
+          - Name: 'store_name_kn'
+            Type: string
+          - Name: 'store_name_eng'
+            Type: string
+          - Name: 'postal_cd'
+            Type: string
+          - Name: 'address'
+            Type: string
+          - Name: 'tel'
+            Type: string
+          - Name: 'tel_detail_screen'
+            Type: string
+          - Name: 'email'
+            Type: string
+          - Name: 'business_hours_mon'
+            Type: string
+          - Name: 'business_hours_tue'
+            Type: string
+          - Name: 'business_hours_wed'
+            Type: string
+          - Name: 'business_hours_thu'
+            Type: string
+          - Name: 'business_hours_fri'
+            Type: string
+          - Name: 'business_hours_sat'
+            Type: string
+          - Name: 'business_hours_sun'
+            Type: string
+          - Name: 'business_hours_holiday'
+            Type: string
+          - Name: 'business_hours_before_holiday'
+            Type: string
+          - Name: 'regular_holiday'
+            Type: string
+          - Name: 'store_comment'
+            Type: string
+          - Name: 'business_format'
+            Type: string
+          - Name: 'url'
+            Type: string
+          - Name: 'start_date'
+            Type: string
+          - Name: 'end_date'
+            Type: string
+          - Name: 's_publishing_reserve_datetime'
+            Type: string
+          - Name: 'campaign'
+            Type: string
+          - Name: 'campaign_start_date'
+            Type: string
+          - Name: 'campaign_end_date'
+            Type: string
+          - Name: 'registration_type'
+            Type: string
+          InputFormat: org.apache.hadoop.mapred.TextInputFormat
+          Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/temp/
+          SerdeInfo:
+            Parameters:
+              quotechar: '"'
+              skip.header.line.count: 1
+              EXTERNAL: 'TRUE'
+              field.delim: ','
+            SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
+
+Outputs:
+  CreateResult:
+    Value: !Sub ${Brand}_all_${StoreCode}
+    Value: !Sub ${Brand}_diff_${StoreCode}
+    Value: !Sub ${Brand}_temp_${StoreCode}
