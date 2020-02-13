@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ## GetCode
 EnvCode=$1
 StoreCode=$2

@@ -21,7 +21,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: ${Database}
+      DatabaseName: !Sub ${Database}
       TableInput: 
         Name: !Sub ${Brand}_all_${StoreCode}
         TableType: EXTERNAL_TABLE
@@ -46,7 +46,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: ${Database}
+      DatabaseName: !Sub ${Database}
       TableInput: 
         Name: !Sub ${Brand}_diff_${StoreCode}
         TableType: EXTERNAL_TABLE
@@ -68,7 +68,7 @@ Resources:
             SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
   temptable:
     Type: AWS::Glue::Table
-    DeletionPolicy: Retain
+    DeletionPolicy: !Sub Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
       DatabaseName: ${Database}

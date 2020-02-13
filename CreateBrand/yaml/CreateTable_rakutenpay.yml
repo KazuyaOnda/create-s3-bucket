@@ -21,7 +21,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: ${Database}
+      DatabaseName: !Sub ${Database}
       TableInput: 
         Name: !Sub ${Brand}_all_${StoreCode}
         TableType: EXTERNAL_TABLE
@@ -74,7 +74,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: ${Database}
+      DatabaseName: !Sub ${Database}
       TableInput: 
         Name: !Sub ${Brand}_diff_${StoreCode}
         TableType: EXTERNAL_TABLE
@@ -127,7 +127,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: ${Database}
+      DatabaseName: !Sub ${Database}
       TableInput: 
         Name: !Sub ${Brand}_temp_${StoreCode}
         TableType: EXTERNAL_TABLE
