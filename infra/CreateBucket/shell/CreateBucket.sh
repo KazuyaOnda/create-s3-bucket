@@ -7,7 +7,7 @@ Database=$4
 ACCOUNT_ID=$5
 
 ## CloudFormation Template
-CFTemplate="${CODEBUILD_SRC_DIR}/yaml/CreateBucket.yml"
+CFTemplate="${CODEBUILD_SRC_DIR}/infra/CreateBucket/yaml/CreateBucket.yml"
 
 ## CloudFormation Stack Create
 echo '_/_/_/ Start Create CloudFormation Stack _/_/_/'
