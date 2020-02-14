@@ -10,4 +10,5 @@ phases:
       - ACCOUNT_ID=${CODEBUILD_BUILD_ARN} && IFS=':' && set -- $ACCOUNT_ID && ACCOUNT_ID=$5
   post_build:
     commands:
+      - echo ${CODEBUILD_SRC_DIR}
       - /bin/bash shell/CreateBucket.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID}
