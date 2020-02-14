@@ -15,6 +15,9 @@ echo '_/_/_/ Start create CloudFormation Stack ('$Brand') _/_/_/'
 aws cloudformation create-stack --stack-name $EnvCode-$StoreCode-$Brand-Table-create --template-body file://$CFTemplate --parameters ParameterKey=EnvCode,ParameterValue=$EnvCode ParameterKey=StoreCode,ParameterValue=$StoreCode ParameterKey=Brand,ParameterValue=$Brand ParameterKey=Database,ParameterValue=$Database --tags Key=ResourceGroup,Value=$ResourceGroup
 echo '_/_/_/ End create CloudFormation Stack ('$Brand') _/_/_/'
 
+echo '_/_/_/ Check Stack Status _/_/_/'
+aws cloudformation wait stack-create-complete --stack-name $EnvCode-$StoreCode-$Brand-Table-create
+
 ## Create Null key for S3 Bucket
 echo '_/_/_/ Start create Null key for S3 Bucket ('$Brand') _/_/_/'
 aws s3api put-object --bucket $EnvCode.$StoreCode --key brand/$Brand/
