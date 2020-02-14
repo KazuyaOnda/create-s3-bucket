@@ -11,4 +11,4 @@ phases:
   post_build:
     commands:
       - echo ${CODEBUILD_SRC_DIR}
-      - /bin/bash shell/CreateBucket.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID}
+      - /bin/bash infra/CreateBucket/shell/CreateBucket.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID}
