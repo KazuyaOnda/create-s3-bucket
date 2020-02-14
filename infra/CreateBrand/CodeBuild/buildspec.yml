@@ -10,4 +10,4 @@ phases:
       - ACCOUNT_ID=${CODEBUILD_BUILD_ARN} && IFS=':' && set -- $ACCOUNT_ID && ACCOUNT_ID=$5
   post_build:
     commands:
-      - /bin/bash shell/BrandFork.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID} ${ForkFlg} ${Brand}
+      - /bin/bash infra/CreateBrand/shell/BrandFork.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID} ${ForkFlg} ${Brand}
