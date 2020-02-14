@@ -20,4 +20,7 @@ elif [ $ForkFlg = "one" ]; then
     /bin/bash ${CODEBUILD_SRC_DIR}/infra/CreateBrand/shell/CreateBrand.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID} ${Brand}
 else
     echo '### ForkFlgは「all」か「one」を指定してください ###'
+    exit 1
 fi
+
+exit 0

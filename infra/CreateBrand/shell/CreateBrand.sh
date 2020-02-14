@@ -7,12 +7,6 @@ Database=$4
 ACCOUNT_ID=$5
 Brand=$6
 
-## Get S3 notification-configuration
-echo '_/_/_/ Start Get S3 notification-configuration _/_/_/'
-tmpJson=`aws s3api get-bucket-notification-configuration --bucket $EnvCode.$StoreCode`
-tmpJsonLine=`echo ${tmpJson} | python -m json.tool | wc -l`
-echo '_/_/_/ End Get S3 notification-configuration _/_/_/'
-
 ## CloudFormation Template
 CFTemplate="${CODEBUILD_SRC_DIR}/infra/CreateBrand/yaml/CreateTable_$Brand.yml"
 
@@ -20,6 +14,15 @@ CFTemplate="${CODEBUILD_SRC_DIR}/infra/CreateBrand/yaml/CreateTable_$Brand.yml"
 echo '_/_/_/ Start create CloudFormation Stack ('$Brand') _/_/_/'
 aws cloudformation create-stack --stack-name $EnvCode-$StoreCode-$Brand-Table-create --template-body file://$CFTemplate --parameters ParameterKey=EnvCode,ParameterValue=$EnvCode ParameterKey=StoreCode,ParameterValue=$StoreCode ParameterKey=Brand,ParameterValue=$Brand ParameterKey=Database,ParameterValue=$Database --tags Key=ResourceGroup,Value=$ResourceGroup
 echo '_/_/_/ End create CloudFormation Stack ('$Brand') _/_/_/'
+
+## CloudFormation Stack Status Check
+echo '_/_/_/ Check Stack Status _/_/_/'
+StackStatus=`aws cloudformation describe-stacks --stack-name $EnvCode-$StoreCode-$Brand-create | grep 'StackStatus' | awk -F ": " '{print $2}'`
+
+if [ $StackStatus != "CREATE_COMPLETE" ]; then
+  echo '### CloudFormation Stack Error ###'
+  exit 1
+fi
 
 ## Create Null key for S3 Bucket
 echo '_/_/_/ Start create Null key for S3 Bucket ('$Brand') _/_/_/'
@@ -32,6 +35,12 @@ aws s3api put-object --bucket $EnvCode.$StoreCode --key old/brand/$Brand/all/
 aws s3api put-object --bucket $EnvCode.$StoreCode --key old/brand/$Brand/diff/
 echo '_/_/_/ End create Null key for S3 Bucket ('$Brand') _/_/_/'
 
+## Get S3 notification-configuration
+echo '_/_/_/ Start Get S3 notification-configuration _/_/_/'
+tmpJson=`aws s3api get-bucket-notification-configuration --bucket $EnvCode.$StoreCode`
+tmpJsonLine=`echo ${tmpJson} | python -m json.tool | wc -l`
+echo '_/_/_/ End Get S3 notification-configuration _/_/_/'
+
 ## Edit S3 notification-configuration
 echo '_/_/_/ Start add S3 Notification-Configuration ('$Brand') _/_/_/'
 editJsonLine=$(($tmpJsonLine - 2))
@@ -39,7 +48,7 @@ LambdaFunctionJson=`echo $tmpJson | python -m json.tool | head -$editJsonLine`
 
 LambdaFunctionJson+=',
     {
-        "Id": "/brand/'$Brand'/temp/",
+        "Id": "brand/'$Brand'/temp/",
         "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'${ACCOUNT_ID}':function:test-check-s3-temp-object",
         "Events": [
             "s3:ObjectCreated:Put"
@@ -60,7 +69,7 @@ LambdaFunctionJson+=',
         }
     },
     {
-        "Id": "/brand/'$Brand'/diff/",
+        "Id": "brand/'$Brand'/diff/diff_",
         "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'${ACCOUNT_ID}':function:test-check-s3-diff-object",
         "Events": [
             "s3:ObjectCreated:Put"
@@ -88,3 +97,5 @@ echo '_/_/_/ Finish add S3 Notification-Configuration ('$Brand') _/_/_/'
 echo '_/_/_/ Start add put-bucket-notification-configuration brand event _/_/_/'
 aws s3api put-bucket-notification-configuration --bucket $EnvCode.$StoreCode --notification-configuration "${LambdaFunctionJson}"
 echo '_/_/_/ Finish add put-bucket-notification-configuration brand event _/_/_/'
+
+exit 0

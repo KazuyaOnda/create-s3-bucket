@@ -15,7 +15,16 @@ aws cloudformation create-stack --stack-name $EnvCode-$StoreCode-create --templa
 echo '_/_/_/ End Create CloudFormation Stack _/_/_/'
 
 ## Wait 10 Seconds S3 Bucket Create
-sleep 10s
+#sleep 10s
+
+## CloudFormation Stack Status Check
+echo '_/_/_/ Check Stack Status _/_/_/'
+StackStatus=`aws cloudformation describe-stacks --stack-name $EnvCode-$StoreCode-create | grep 'StackStatus' | awk -F ": " '{print $2}'`
+
+if [ $StackStatus != "CREATE_COMPLETE" ]; then
+  echo '### CloudFormation Stack Error ###'
+  exit 1
+fi
 
 ## Add Lambda Permission
 # ErrorCheck Lambda
@@ -77,3 +86,4 @@ echo '_/_/_/ Start Add put-bucket-notification-configuration upload event _/_/_/
 aws s3api put-bucket-notification-configuration --bucket $EnvCode.$StoreCode --notification-configuration "${LambdaFunctionJson}"
 echo '_/_/_/ End Add put-bucket-notification-configuration upload event _/_/_/'
 
+exit 0
