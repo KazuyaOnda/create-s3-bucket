@@ -6,7 +6,6 @@ ResourceGroup=$3
 Database=$4
 ACCOUNT_ID=$5
 Brand=$6
-CFCheckFlg=False
 
 ## CloudFormation Template
 CFTemplate="${CODEBUILD_SRC_DIR}/infra/CreateBrand/yaml/CreateTable_$Brand.yml"
