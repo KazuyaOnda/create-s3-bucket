@@ -94,7 +94,7 @@ Resources:
       CatalogId: !Ref AWS::AccountId
       DatabaseName: !Sub ${Database}
       TableInput: 
-        Name: !Sub {$Brand}_diff_${StoreCode}
+        Name: !Sub ${Brand}_diff_${StoreCode}
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
