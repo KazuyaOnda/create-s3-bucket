@@ -18,20 +18,7 @@ echo '_/_/_/ End Create CloudFormation Stack _/_/_/'
 #sleep 10s
 
 echo '_/_/_/ Check Stack Status _/_/_/'
-StackFinFlg='FALSE'
-CFStackStatus=`aws cloudformation describe-stacks --stack-name $EnvCode-$StoreCode-create | grep StackStatus | awk -F ": " '{print $2}'`
-while [ $StackFinFlg != 'TRUE' ]
-do
-  echo $CFStackStatus
-  if [ $CFStackStatus = ""CREATE_COMPLETE"" ]; then
-    StackFinFlg='TRUE'
-  elif [ $CFStackStatus = ""CREATE_IN_PROGRESS"" ]; then
-    sleep 10s
-    CFStackStatus=`aws cloudformation describe-stacks --stack-name $EnvCode-$StoreCode-create | grep StackStatus | awk -F ": " '{print $2}'`
-  else
-    exit 1
-  fi
-done
+aws cloudformation wait stack-create-complete --stack-name $EnvCode-$StoreCode-create
 
 ## Add Lambda Permission
 # ErrorCheck Lambda
