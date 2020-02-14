@@ -15,16 +15,7 @@ aws cloudformation create-stack --stack-name $EnvCode-$StoreCode-create --templa
 echo '_/_/_/ End Create CloudFormation Stack _/_/_/'
 
 ## Wait 10 Seconds S3 Bucket Create
-#sleep 10s
-
-## CloudFormation Stack Status Check
-echo '_/_/_/ Check Stack Status _/_/_/'
-StackStatus=`aws cloudformation describe-stacks --stack-name $EnvCode-$StoreCode-create | grep 'StackStatus' | awk -F ": " '{print $2}'`
-
-if [ $StackStatus != "CREATE_COMPLETE" ]; then
-  echo '### CloudFormation Stack Error ###'
-  exit 1
-fi
+sleep 10s
 
 ## Add Lambda Permission
 # ErrorCheck Lambda
