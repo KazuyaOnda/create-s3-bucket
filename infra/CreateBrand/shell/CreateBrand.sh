@@ -39,7 +39,7 @@ LambdaFunctionJson=`echo $tmpJson | python -m json.tool | head -$editJsonLine`
 
 LambdaFunctionJson+=',
     {
-        "Id": "'/brand/'$Brand'/temp/'",
+        "Id": "/brand/'$Brand'/temp/",
         "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'${ACCOUNT_ID}':function:test-check-s3-temp-object",
         "Events": [
             "s3:ObjectCreated:Put"
@@ -60,7 +60,7 @@ LambdaFunctionJson+=',
         }
     },
     {
-        "Id": "'/brand/'$brand'/diff/'",
+        "Id": "/brand/'$Brand'/diff/",
         "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'${ACCOUNT_ID}':function:test-check-s3-diff-object",
         "Events": [
             "s3:ObjectCreated:Put"
