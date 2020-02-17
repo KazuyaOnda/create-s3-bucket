@@ -80,4 +80,10 @@ echo '_/_/_/ Start Add put-bucket-notification-configuration upload event _/_/_/
 aws s3api put-bucket-notification-configuration --bucket $EnvCode.$StoreCode --notification-configuration "${LambdaFunctionJson}"
 echo '_/_/_/ End Add put-bucket-notification-configuration upload event _/_/_/'
 
-exit 0
+## CloudFormation Stack Delete
+echo '_/_/_/ Start Delete CloudFormation Stack _/_/_/'
+aws cloudformation delete-stack --stack-name $EnvCode-$StoreCode-create
+echo '_/_/_/ End Delete CloudFormation Stack _/_/_/'
+
+echo '_/_/_/ Check Stack Status _/_/_/'
+aws cloudformation wait stack-delete-complete --stack-name $EnvCode-$StoreCode-create

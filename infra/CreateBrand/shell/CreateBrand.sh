@@ -92,4 +92,10 @@ echo '_/_/_/ Start add put-bucket-notification-configuration brand event _/_/_/'
 aws s3api put-bucket-notification-configuration --bucket $EnvCode.$StoreCode --notification-configuration "${LambdaFunctionJson}"
 echo '_/_/_/ Finish add put-bucket-notification-configuration brand event _/_/_/'
 
-exit 0
+## CloudFormation Stack Delete
+echo '_/_/_/ Start Delete CloudFormation Stack _/_/_/'
+aws cloudformation delete-stack --stack-name $EnvCode-$StoreCode-$Brand-Table-create
+echo '_/_/_/ End Delete CloudFormation Stack _/_/_/'
+
+echo '_/_/_/ Check Stack Status _/_/_/'
+aws cloudformation wait stack-delete-complete --stack-name $EnvCode-$StoreCode-$Brand-Table-create
