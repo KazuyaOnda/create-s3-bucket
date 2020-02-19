@@ -42,5 +42,3 @@
 - CreateBucket.yml
   - S3 Bucket
   - upload/のCSVファイルを参照するTable
-
-#### add-test-20200219
