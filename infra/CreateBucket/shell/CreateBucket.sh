@@ -14,9 +14,7 @@ echo '_/_/_/ Start Create CloudFormation Stack _/_/_/'
 aws cloudformation create-stack --stack-name $EnvCode-$StoreCode-create --template-body file://$CFTemplate --parameters ParameterKey=EnvCode,ParameterValue=$EnvCode ParameterKey=StoreCode,ParameterValue=$StoreCode ParameterKey=Database,ParameterValue=$Database --tags Key=ResourceGroup,Value=$ResourceGroup
 echo '_/_/_/ End Create CloudFormation Stack _/_/_/'
 
-## Wait 10 Seconds S3 Bucket Create
-#sleep 10s
-
+## Wait Complete Cloudformation Stack Create
 echo '_/_/_/ Check Stack Status _/_/_/'
 aws cloudformation wait stack-create-complete --stack-name $EnvCode-$StoreCode-create
 
