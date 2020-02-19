@@ -32,6 +32,7 @@ Resources:
           has_encrypted_data: 'false'
         StorageDescriptor:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          NumberOfBuckets: -1
           Columns:
           - Name: 'registration_type'
             Type: string
@@ -107,6 +108,7 @@ Resources:
           has_encrypted_data: 'false'
         StorageDescriptor:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          NumberOfBuckets: -1
           Columns:
           - Name: 'aupay_company_cd'
             Type: string
@@ -170,6 +172,7 @@ Resources:
           has_encrypted_data: 'false'
         StorageDescriptor:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          NumberOfBuckets: -1
           Columns:
           - Name: 'aupay_company_cd'
             Type: string

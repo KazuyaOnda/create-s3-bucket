@@ -27,8 +27,12 @@ Resources:
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
+          skip.header.line.count: 1
+          EXTERNAL: 'TRUE'
+          has_encrypted_data: 'false'
         StorageDescriptor:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          NumberOfBuckets: -1
           Columns:
           - Name: 'brand_id'
             Type: string
@@ -102,10 +106,11 @@ Resources:
           Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/all/
           SerdeInfo:
             Parameters:
-              quotechar: '"'
-              skip.header.line.count: 1
-              EXTERNAL: 'TRUE'
+              integerization.format: ","
+              quoteChar: '"'
+              escapeChar: '\'
               field.delim: ','
+              serialization.format: '1'
             SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
   difftable:
     Type: AWS::Glue::Table
@@ -118,8 +123,12 @@ Resources:
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
+          skip.header.line.count: 1
+          EXTERNAL: 'TRUE'
+          has_encrypted_data: 'false'
         StorageDescriptor:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          NumberOfBuckets: -1
           Columns:
           - Name: 'brand_id'
             Type: string
@@ -193,10 +202,11 @@ Resources:
           Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/diff/
           SerdeInfo:
             Parameters:
-              quotechar: '"'
-              skip.header.line.count: 1
-              EXTERNAL: 'TRUE'
+              integerization.format: ","
+              quoteChar: '"'
+              escapeChar: '\'
               field.delim: ','
+              serialization.format: '1'
             SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
   temptable:
     Type: AWS::Glue::Table
@@ -209,8 +219,12 @@ Resources:
         TableType: EXTERNAL_TABLE
         Parameters:
           classification: 'csv'
+          skip.header.line.count: 1
+          EXTERNAL: 'TRUE'
+          has_encrypted_data: 'false'
         StorageDescriptor:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
+          NumberOfBuckets: -1
           Columns:
           - Name: 'brand_id'
             Type: string
@@ -284,10 +298,11 @@ Resources:
           Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/temp/
           SerdeInfo:
             Parameters:
-              quotechar: '"'
-              skip.header.line.count: 1
-              EXTERNAL: 'TRUE'
+              integerization.format: ","
+              quoteChar: '"'
+              escapeChar: '\'
               field.delim: ','
+              serialization.format: '1'
             SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
 
 Outputs:
