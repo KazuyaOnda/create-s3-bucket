@@ -21,5 +21,3 @@
 
 - Glue Tableの作成
 - S3 BucketにNull Keyを作成
-
-## add-test-20200220
