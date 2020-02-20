@@ -35,7 +35,35 @@ Resources:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           NumberOfBuckets: -1
           Columns:
-          - Name: 'column name'
+          - Name: 'store_id'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'store_name_kn'
+            Type: string
+          - Name: 'store_short_name'
+            Type: string
+          - Name: 'postal_cd'
+            Type: string
+          - Name: 'address'
+            Type: string
+          - Name: 'tel'
+            Type: string
+          - Name: 'business_hours'
+            Type: string
+          - Name: 'regular_holiday'
+            Type: string
+          - Name: 'store_introduction'
+            Type: string
+          - Name: 'url'
+            Type: string
+          - Name: 'access'
+            Type: string
+          - Name: 'closed_flag'
+            Type: string
+          - Name: 'public_private'
+            Type: string
+          - Name: 'contact_display_flag'
             Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
           Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/all/
@@ -65,7 +93,35 @@ Resources:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           NumberOfBuckets: -1
           Columns:
-          - Name: 'column name'
+          - Name: 'store_id'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'store_name_kn'
+            Type: string
+          - Name: 'store_short_name'
+            Type: string
+          - Name: 'postal_cd'
+            Type: string
+          - Name: 'address'
+            Type: string
+          - Name: 'tel'
+            Type: string
+          - Name: 'business_hours'
+            Type: string
+          - Name: 'regular_holiday'
+            Type: string
+          - Name: 'store_introduction'
+            Type: string
+          - Name: 'url'
+            Type: string
+          - Name: 'access'
+            Type: string
+          - Name: 'closed_flag'
+            Type: string
+          - Name: 'public_private'
+            Type: string
+          - Name: 'contact_display_flag'
             Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
           Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/diff/
@@ -95,7 +151,35 @@ Resources:
           OutputFormat: org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat
           NumberOfBuckets: -1
           Columns:
-          - Name: 'column name'
+          - Name: 'store_id'
+            Type: string
+          - Name: 'store_name'
+            Type: string
+          - Name: 'store_name_kn'
+            Type: string
+          - Name: 'store_short_name'
+            Type: string
+          - Name: 'postal_cd'
+            Type: string
+          - Name: 'address'
+            Type: string
+          - Name: 'tel'
+            Type: string
+          - Name: 'business_hours'
+            Type: string
+          - Name: 'regular_holiday'
+            Type: string
+          - Name: 'store_introduction'
+            Type: string
+          - Name: 'url'
+            Type: string
+          - Name: 'access'
+            Type: string
+          - Name: 'closed_flag'
+            Type: string
+          - Name: 'public_private'
+            Type: string
+          - Name: 'contact_display_flag'
             Type: string
           InputFormat: org.apache.hadoop.mapred.TextInputFormat
           Location: !Sub s3://${EnvCode}.${StoreCode}/brand/${Brand}/temp/
