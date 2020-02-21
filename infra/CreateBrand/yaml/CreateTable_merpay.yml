@@ -134,10 +134,10 @@ Resources:
             SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
   temptable:
     Type: AWS::Glue::Table
-    DeletionPolicy: !Sub Retain
+    DeletionPolicy: Retain
     Properties:
       CatalogId: !Ref AWS::AccountId
-      DatabaseName: ${Database}
+      DatabaseName: !Sub ${Database}
       TableInput: 
         Name: !Sub ${Brand}_temp_${StoreCode}
         TableType: EXTERNAL_TABLE
