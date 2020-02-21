@@ -13,10 +13,12 @@ echo '_/_/_/ Check Brand Fork (AllBrand or OneBrand) _/_/_/'
 if [ $ForkFlg = "all" ]; then
     while read Brand
     do
+        echo 'All Brand Create'
         /bin/bash ${CODEBUILD_SRC_DIR}/infra/CreateBrand/shell/CreateBrand.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID} ${Brand}
         sleep 15
     done < ${CODEBUILD_SRC_DIR}/infra/CreateBrand/list/brand.list
 elif [ $ForkFlg = "one" ]; then
+    echo 'One Brand Create ('${Brand}')'
     /bin/bash ${CODEBUILD_SRC_DIR}/infra/CreateBrand/shell/CreateBrand.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID} ${Brand}
 else
     echo '### ForkFlgは「all」か「one」を指定してください ###'
