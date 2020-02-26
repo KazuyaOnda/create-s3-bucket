@@ -36,6 +36,7 @@ elif [ $ForkFlg = "one" ]; then
 else
   echo '### ForkFlgは「all」か「one」を指定してください ###'
   echo '## 「one」を指定した場合は、Brandに作成対象のブランド名を1つだけ入力してください ##'
+  echo '## ForkFlgを正しく指定している場合は、他の環境変数が問題なく入力されていることを確認してください ##'
   exit 1
 fi
 
