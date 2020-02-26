@@ -6,6 +6,13 @@ ResourceGroup=$3
 Database=$4
 ACCOUNT_ID=$5
 
+## Check if arguments are entered
+if [ $# -lt 5 ]; then
+  echo "*-*-*-*-*-*-*-*-*- エラー！！ -*-*-*-*-*-*-*-*-*"
+  echo "## 引数が不足しています。環境変数を確認してください ##"
+  exit 1
+fi
+
 ## CloudFormation Template
 CFTemplate="${CODEBUILD_SRC_DIR}/infra/CreateBucket/yaml/CreateBucket.yml"
 
@@ -85,3 +92,5 @@ echo '_/_/_/ End Delete CloudFormation Stack _/_/_/'
 
 echo '_/_/_/ Check Stack Status _/_/_/'
 aws cloudformation wait stack-delete-complete --stack-name $EnvCode-$StoreCode-create
+
+exit 0
