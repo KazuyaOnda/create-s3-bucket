@@ -8,6 +8,15 @@ ACCOUNT_ID=$5
 ForkFlg=$6
 Brand=$7
 
+## Check if arguments are entered
+#if [ $# -ne 6 ]; then
+#  echo "引数が不足しています。環境変数を確認してください。"
+#  exit 1
+#fi
+
+echo $ForkFlg
+echo $Brand
+
 ## Get S3 notification-configuration
 echo '_/_/_/ Check Brand Fork (AllBrand or OneBrand) _/_/_/'
 if [ $ForkFlg = "all" ]; then
