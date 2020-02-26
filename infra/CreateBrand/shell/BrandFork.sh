@@ -23,7 +23,7 @@ if [ $ForkFlg = "all" ]; then
     done < ${CODEBUILD_SRC_DIR}/infra/CreateBrand/list/brand.list
   fi
 elif [ $ForkFlg = "one" ]; then
-  if [ $Brand = "-" ]; then
+  if [ -z $Brand ]; then
     echo "## ForkFlgで「one」を指定した場合は、Brandに作成対象のブランド名を1つだけ入力してください ##"
     exit 1
   elif [ $# -lt 7 ]; then
