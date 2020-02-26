@@ -14,8 +14,8 @@ Brand=$7
 #  exit 1
 #fi
 
-echo $ForkFlg
-echo $Brand
+echo 'ForkFlg="'$ForkFlg'"'
+echo 'Brand="'$Brand'"'
 
 ## Get S3 notification-configuration
 echo '_/_/_/ Check Brand Fork (AllBrand or OneBrand) _/_/_/'
