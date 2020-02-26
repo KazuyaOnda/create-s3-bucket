@@ -1,11 +1,11 @@
 #!/bin/sh
 ## GetCode
-EnvCode=$1
-StoreCode=$2
-ResourceGroup=$3
-Database=$4
-ACCOUNT_ID=$5
-ForkFlg=$6
+ForkFlg=$1
+EnvCode=$2
+StoreCode=$3
+ResourceGroup=$4
+Database=$5
+ACCOUNT_ID=$6
 Brand=$7
 
 ## Check Brand Fork And Argment
