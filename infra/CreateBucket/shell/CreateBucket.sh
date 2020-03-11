@@ -8,7 +8,7 @@ Database=$4
 ACCOUNT_ID=`aws sts get-caller-identity --query 'Account' --output text`
 
 ## Check if arguments are entered
-if [ $# -lt 5 ]; then
+if [ $# -lt 4 ]; then
   echo "*-*-*-*-*-*-*-*-*- エラー！！ -*-*-*-*-*-*-*-*-*"
   echo "## 引数が不足しています。環境変数を確認してください ##"
   exit 1

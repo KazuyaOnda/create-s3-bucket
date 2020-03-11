@@ -12,7 +12,7 @@ ACCOUNT_ID=`aws sts get-caller-identity --query 'Account' --output text`
 ## Check Brand Fork And Argment
 echo '_/_/_/ Check Brand Fork (AllBrand or OneBrand) _/_/_/'
 if [ $ForkFlg = "all" ]; then
-  if [ $# -lt 6 ]; then
+  if [ $# -lt 5 ]; then
     echo "*-*-*-*-*-*-*-*-*- エラー！！ -*-*-*-*-*-*-*-*-*"
     echo "## 引数が不足しています。環境変数を確認してください。 ##"
     exit 1
@@ -30,7 +30,7 @@ elif [ $ForkFlg = "one" ]; then
     echo "## 環境変数の「Brand」に値が入力されていないエラーです ##"
     echo "## ForkFlgで「one」を指定した場合は、Brandに作成対象のブランド名を1つだけ入力してください ##"
     exit 1
-  elif [ $# -lt 7 ]; then
+  elif [ $# -lt 6 ]; then
     echo "*-*-*-*-*-*-*-*-*- エラー！！ -*-*-*-*-*-*-*-*-*"
     echo "## 引数が不足しています。環境変数を確認してください。 ##"
     echo "## ForkFlgで「one」を指定した場合は、Brandに作成対象のブランド名を1つだけ入力してください ##"
