@@ -256,9 +256,3 @@ Resources:
               field.delim: ','
               serialization.format: '1'
             SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
-
-Outputs:
-  CreateResult:
-    Value: !Sub ${Brand}_all_${StoreCode}
-    Value: !Sub ${Brand}_diff_${StoreCode}
-    Value: !Sub ${Brand}_temp_${StoreCode}
