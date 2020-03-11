@@ -4,7 +4,8 @@ EnvCode=$1
 StoreCode=$2
 ResourceGroup=$3
 Database=$4
-ACCOUNT_ID=$5
+
+ACCOUNT_ID=`aws sts get-caller-identity --query 'Account' --output text`
 
 ## Check if arguments are entered
 if [ $# -lt 5 ]; then
@@ -18,12 +19,16 @@ CFTemplate="${CODEBUILD_SRC_DIR}/infra/CreateBucket/yaml/CreateBucket.yml"
 
 ## CloudFormation Stack Create
 echo '_/_/_/ Start Create CloudFormation Stack _/_/_/'
-aws cloudformation create-stack --stack-name $EnvCode-$StoreCode-create --template-body file://$CFTemplate --parameters ParameterKey=EnvCode,ParameterValue=$EnvCode ParameterKey=StoreCode,ParameterValue=$StoreCode ParameterKey=Database,ParameterValue=$Database --tags Key=ResourceGroup,Value=$ResourceGroup
-echo '_/_/_/ End Create CloudFormation Stack _/_/_/'
+aws cloudformation create-stack --stack-name $EnvCode-$StoreCode-create \
+--template-body file://$CFTemplate \
+--parameters ParameterKey=EnvCode,ParameterValue=$EnvCode \
+ParameterKey=StoreCode,ParameterValue=$StoreCode \
+ParameterKey=Database,ParameterValue=$Database \
+--tags Key=ResourceGroup,Value=$ResourceGroup
 
 ## Wait Complete Cloudformation Stack Create
-echo '_/_/_/ Check Stack Status _/_/_/'
 aws cloudformation wait stack-create-complete --stack-name $EnvCode-$StoreCode-create
+echo '_/_/_/ End Create CloudFormation Stack _/_/_/'
 
 ## Add Lambda Permission
 # ErrorCheck Lambda
@@ -88,9 +93,8 @@ echo '_/_/_/ End Add put-bucket-notification-configuration upload event _/_/_/'
 ## CloudFormation Stack Delete
 echo '_/_/_/ Start Delete CloudFormation Stack _/_/_/'
 aws cloudformation delete-stack --stack-name $EnvCode-$StoreCode-create
-echo '_/_/_/ End Delete CloudFormation Stack _/_/_/'
 
-echo '_/_/_/ Check Stack Status _/_/_/'
 aws cloudformation wait stack-delete-complete --stack-name $EnvCode-$StoreCode-create
+echo '_/_/_/ End Delete CloudFormation Stack _/_/_/'
 
 exit 0

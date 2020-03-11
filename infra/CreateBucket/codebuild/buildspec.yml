@@ -1,13 +1,6 @@
 version: 0.2
 
-env:
-  variables:
-    ACCOUNT_ID: ACCOUNT_ID
-
 phases:
-  install:
-    commands:
-      - ACCOUNT_ID=${CODEBUILD_BUILD_ARN} && IFS=':' && set -- $ACCOUNT_ID && ACCOUNT_ID=$5
   post_build:
     commands:
       - /bin/bash infra/CreateBucket/shell/CreateBucket.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID}

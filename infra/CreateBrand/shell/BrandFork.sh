@@ -5,8 +5,9 @@ EnvCode=$2
 StoreCode=$3
 ResourceGroup=$4
 Database=$5
-ACCOUNT_ID=$6
-Brand=$7
+Brand=$6
+
+ACCOUNT_ID=`aws sts get-caller-identity --query 'Account' --output text`
 
 ## Check Brand Fork And Argment
 echo '_/_/_/ Check Brand Fork (AllBrand or OneBrand) _/_/_/'
