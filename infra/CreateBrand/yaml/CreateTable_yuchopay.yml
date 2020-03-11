@@ -2,7 +2,6 @@
 Description: This CloudFormation template to create S3 Bucket
 
 Parameters:
-Parameters:
   EnvCode:
     Description: Type of this EnvCode.
     Type: String
