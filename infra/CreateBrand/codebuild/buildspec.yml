@@ -3,4 +3,4 @@ version: 0.2
 phases:
   post_build:
     commands:
-      - /bin/bash infra/CreateBrand/shell/BrandFork.sh ${ForkFlg} ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${ACCOUNT_ID} ${Brand}
+      - /bin/bash infra/CreateBrand/shell/BrandFork.sh ${ForkFlg} ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database} ${Brand}

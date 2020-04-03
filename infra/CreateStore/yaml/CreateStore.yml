@@ -1,5 +1,5 @@
 ﻿AWSTemplateFormatVersion: '2010-09-09'
-Description: This CloudFormation template to create S3 Bucket
+Description: This CloudFormation template to create S3 Bucket and Glue Table
 
 Parameters:
   EnvCode:
@@ -166,9 +166,4 @@ Resources:
               escapeChar: '\'
               field.delim: ','
               serialization.format: '1'
-            SerializationLibrary: org.apache.hadoop.hive.serde2.OpenCSVSerde
-
-Outputs:
-  CreateResult:
-    Value: !Sub ${EnvCode}-${StoreCode}-bucket
-    Value: !Sub ${EnvCode}_${StoreCode}_upload_table
+            SerializationLibrary: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
