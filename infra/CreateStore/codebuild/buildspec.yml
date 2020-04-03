@@ -1,0 +1,6 @@
+version: 0.2
+
+phases:
+  post_build:
+    commands:
+      - /bin/bash infra/CreateStore/shell/CreateStore.sh ${EnvCode} ${StoreCode} ${ResourceGroup} ${Database}
