@@ -42,7 +42,7 @@ echo '_/_/_/ End create Null key for S3 Bucket ('$Brand') _/_/_/'
 ## Copy Default All CSV File
 echo '_/_/_/ Start copy default all csv file _/_/_/'
 aws s3api copy-object --bucket $EnvCode.$StoreCode \
---copy-source $EnvCode.master-files/template-csv/$Brand_all_default.csv \
+--copy-source $EnvCode.master-files/template-csv/${Brand}_all_default.csv \
 --key brand/$Brand/all/all_$EnvCode.$StoreCode_$Brand_$ExecDate.csv
 echo '_/_/_/ End copy default all csv file _/_/_/'
 
