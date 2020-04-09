@@ -41,8 +41,9 @@ echo '_/_/_/ End create Null key for S3 Bucket ('$Brand') _/_/_/'
 
 ## Copy Default All CSV File
 echo '_/_/_/ Start copy default all csv file _/_/_/'
-aws s3 cp s3://$EnvCode.master-files/template-csv/$Brand_all_default.csv \
-s3://$EnvCode.$StoreCode/brand/$Brand/all/all_$EnvCode.$StoreCode_$Brand_$ExecDate.csv
+aws s3api copy-object --bucket $EnvCode.$StoreCode \
+--copy-source $EnvCode.master-files/template-csv/$Brand_all_dcefault.csv \
+--key brand/$Brand/all/all_$EnvCode.$StoreCode_$Brand_$ExecDate.csv
 echo '_/_/_/ End copy default all csv file _/_/_/'
 
 echo '_/_/_/ Start add put-bucket-notification-configuration ('$Brand') _/_/_/'
