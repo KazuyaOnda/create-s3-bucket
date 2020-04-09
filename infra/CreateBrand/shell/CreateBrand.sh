@@ -8,7 +8,7 @@ ACCOUNT_ID=$5
 Brand=$6
 
 ## Execute Date
-ExecDate=`date "+%Y%m%d%H%M%S"`
+ExecDate=`date -d '9hour' "+%Y%m%d%H%M%S"`
 
 ## CloudFormation Template
 CFTemplate="${CODEBUILD_SRC_DIR}/infra/CreateBrand/yaml/CreateTable_$Brand.yml"
