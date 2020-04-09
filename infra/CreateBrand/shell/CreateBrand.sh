@@ -7,6 +7,9 @@ Database=$4
 ACCOUNT_ID=$5
 Brand=$6
 
+## Execute Date
+ExecDate=`date "+%Y%m%d%H%M%S"`
+
 ## CloudFormation Template
 CFTemplate="${CODEBUILD_SRC_DIR}/infra/CreateBrand/yaml/CreateTable_$Brand.yml"
 
@@ -35,6 +38,12 @@ aws s3api put-object --bucket $EnvCode.$StoreCode --key old/brand/$Brand/
 aws s3api put-object --bucket $EnvCode.$StoreCode --key old/brand/$Brand/all/
 aws s3api put-object --bucket $EnvCode.$StoreCode --key old/brand/$Brand/diff/
 echo '_/_/_/ End create Null key for S3 Bucket ('$Brand') _/_/_/'
+
+## Copy Default All CSV File
+echo '_/_/_/ Start copy default all csv file _/_/_/'
+aws s3 cp s3://$EnvCode.master-files/template-csv/$Brand_all_default.csv \
+s3://$EnvCode.$StoreCode/brand/$Brand/all/all_$EnvCode.$StoreCode_$Brand_$ExecDate.csv
+echo '_/_/_/ End copy default all csv file _/_/_/'
 
 echo '_/_/_/ Start add put-bucket-notification-configuration ('$Brand') _/_/_/'
 ## Get S3 notification-configuration
