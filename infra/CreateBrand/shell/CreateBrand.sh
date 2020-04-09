@@ -69,7 +69,7 @@ fi
 ## Add S3 Notification Configuration
 LambdaFunctionJson+='{
         "Id": "brand/'$Brand'/temp/",
-        "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'${ACCOUNT_ID}':function:CreateDiffFunction",
+        "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'${ACCOUNT_ID}':function:test-check-s3-temp-object",
         "Events": [
             "s3:ObjectCreated:Put"
         ],
@@ -90,7 +90,7 @@ LambdaFunctionJson+='{
     },
     {
         "Id": "brand/'$Brand'/diff/diff_",
-        "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'${ACCOUNT_ID}':function:CreateAllFunction",
+        "LambdaFunctionArn": "arn:aws:lambda:ap-northeast-1:'${ACCOUNT_ID}':function:test-check-s3-diff-object",
         "Events": [
             "s3:ObjectCreated:Copy"
         ],
