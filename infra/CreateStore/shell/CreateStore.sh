@@ -53,6 +53,7 @@ aws s3api put-object --bucket $EnvCode.$StoreCode --key checked/
 aws s3api put-object --bucket $EnvCode.$StoreCode --key brand/
 aws s3api put-object --bucket $EnvCode.$StoreCode --key error/
 aws s3api put-object --bucket $EnvCode.$StoreCode --key zip/
+aws s3api put-object --bucket $EnvCode.$StoreCode --key zip/work/
 aws s3api put-object --bucket $EnvCode.$StoreCode --key old/
 aws s3api put-object --bucket $EnvCode.$StoreCode --key old/upload/
 aws s3api put-object --bucket $EnvCode.$StoreCode --key old/checked/

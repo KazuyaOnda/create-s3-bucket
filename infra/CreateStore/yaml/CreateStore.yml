@@ -24,6 +24,19 @@ Resources:
         BlockPublicPolicy: True
         IgnorePublicAcls: True
         RestrictPublicBuckets: True
+      LifecycleConfiguration:
+        Rules:
+          - Id: !Sub ${EnvCode}.${StoreCode}-zip-rotate
+            Status: Enabled
+            Prefix: zip/
+            ExpirationInDays: 30
+            AbortIncompleteMultipartUpload: 7
+        Rules:
+          - Id: !Sub ${EnvCode}.${StoreCode}-error-rotate
+            Status: Enabled
+            Prefix: error/
+            ExpirationInDays: 7
+            AbortIncompleteMultipartUpload: 7
   uploadtable:
     Type: AWS::Glue::Table
     DeletionPolicy: Retain
