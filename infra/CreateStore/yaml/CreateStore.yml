@@ -32,7 +32,6 @@ Resources:
             ExpirationInDays: 30
             AbortIncompleteMultipartUpload:
               DaysAfterInitiation: 7
-        Rules:
           - Id: !Sub ${EnvCode}.${StoreCode}-error-rotate
             Status: Enabled
             Prefix: error/
